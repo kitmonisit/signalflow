@@ -13,6 +13,7 @@
 % Libraries for signal flow diagrams.
 %
 \usetikzlibrary{signalflowdiagram,signalflowarrows,signalflowoperators,signalflowblocks}
+%\usetikzlibrary{signalflowdiagram,signalflowarrows,signalflowoperators,signalflowblocks}
 
 
 %
@@ -58,49 +59,6 @@ $\bullet$\\[-1ex] $\bullet$\\[-1ex] $\bullet$}
 
 
 %
-% Signal flow diagram.
-%
-% #1 = optional parameter(s)
-% #2 = title text
-\tikzstyle{signal flow diagram} =
-  [rectangle,
-   sharp corners,
-   line width=\diagramlinewidth,
-   draw=black,
-   inner sep=3mm]
-\newenvironment{signalflow}[2][]{%
-\begin{center}
-  \begin{tikzpicture}
-    \node[% title
-      signal flow diagram,
-      fill=blue!90!black,
-      text=white] (title) {#2};% title text
-    \node at (title.south west) [%
-      signal flow diagram,
-      fill=blue!20!white,
-      anchor=north west,
-      yshift=\pgflinewidth]
-    \bgroup
-      \begin{minipage}{0.9\textwidth}
-        \centering
-        \begin{tikzpicture}[%
-          node distance=8mm,
-          pin distance=8mm,
-          label distance=-0.5mm,
-          inner sep=1mm,
-          anchor=center,
-          text centered,
-          #1]% optional parameter(s)
-}{%
-        \end{tikzpicture}
-      \end{minipage}
-    \egroup;
-  \end{tikzpicture}
-\end{center}
-}%
-
-
-%
 % Positioning of node text.
 %
 % #1 = node label
@@ -136,3 +94,5 @@ $\bullet$\\[-1ex] $\bullet$\\[-1ex] $\bullet$}
     \expandafter\do@columns%
   \fi}%
 \makeatother
+
+% vim:sw=2
