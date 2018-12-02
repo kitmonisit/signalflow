@@ -1,0 +1,36 @@
+\documentclass[crop,tikz]{standalone}
+\usepackage{signalflowdiagram}
+\usetikzlibrary{matrix}
+
+\begin{document}
+  \begin{tikzpicture}
+    [every node/.style={anchor=center}]
+    \matrix (m) [matrix of nodes,
+      minimum width=7.5in,
+      row sep=10mm,
+      column sep=16mm]
+    {%
+      % row 0
+      \node[input] (in)    {$R(s)$}; &
+      \node[adder] (add)   {};       &
+      \node[block] (plant) {$G(s)$}; &
+      \node[node]  (tap)   {};       &
+      \node[output](out)   {$C(s)$}; \\
+      % row 1
+      &
+      &
+      \node[block] (fb)    {$H(s)$}; &
+      &
+      & \\
+    };
+
+    \path[r>] (in) -- (add);
+    \path[r>] (add) -- (plant);
+    \path[r]  (plant) -- (tap);
+    \path[r>] (tap) -- (out);
+    \path[r>] (tap) |- (fb);
+    \path[r>] (fb) -| (add);
+  \end{tikzpicture}
+\end{document}
+
+% vim:sw=2
