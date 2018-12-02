@@ -65,6 +65,7 @@
 %
 % Shape of a source.
 %
+%{{{ source shape
 \newbox\pgfnodeparttextbox
 \pgfdeclareshape{source shape}
 {
@@ -157,12 +158,13 @@
     \pgfpatharc{90}{-90}{\radius}
     \pgfclosepath
  }
-}
+}%}}}
 
 
 %
 % Shape of a serial to parallel converter.
 %
+%{{{ serial parallel converter shape
 \newbox\pgfnodepartSbox
 \newbox\pgfnodepartPbox
 \pgfdeclareshape{serial parallel converter shape}
@@ -245,11 +247,12 @@
     \pgfpathmoveto{\pgfpointadd{\southwest}{\pgfpoint{\pgfshapeouterxsep}{\pgfshapeouterysep}}}
     \pgfpathlineto{\pgfpointadd{\northeast}{\pgfpointscale{-1}{\pgfpoint{\pgfshapeouterxsep}{\pgfshapeouterysep}}}}
   }
-}
+}%}}}
 
 %
 % Shape of a parallel to serial converter.
 %
+%{{{ parallel serial converter shape
 \newbox\pgfnodepartSbox
 \newbox\pgfnodepartPbox
 \pgfdeclareshape{parallel serial converter shape}
@@ -332,12 +335,13 @@
     \pgfpathmoveto{\pgfpointadd{\southwest}{\pgfpoint{\pgfshapeouterxsep}{\pgfshapeouterysep}}}
     \pgfpathlineto{\pgfpointadd{\northeast}{\pgfpointscale{-1}{\pgfpoint{\pgfshapeouterxsep}{\pgfshapeouterysep}}}}
   }
-}
+}%}}}
 
 
 %
 % Shape of a symbol mapper.
 %
+%{{{ symbol mapper shape
 \pgfdeclareshape{symbol mapper shape}
 {
   % rectangle anchors
@@ -398,12 +402,13 @@
   }
 
   \inheritbackgroundpath[from=rectangle]
-}
+}%}}}
 
 
 %
 % Shape of an inverse symbol mapper.
 %
+%{{{ inverse symbol mapper shape
 \pgfdeclareshape{inverse symbol mapper shape}
 {
   % rectangle anchors
@@ -464,6 +469,8 @@
   }
 
   \inheritbackgroundpath[from=rectangle]
-}
+}%}}}
 
 \endinput
+
+% vim:sw=2:fdm=marker
