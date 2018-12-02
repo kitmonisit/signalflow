@@ -5,15 +5,14 @@
 \begin{document}
   \begin{tikzpicture}
     [every node/.style={anchor=center}]
-    \matrix (m) [matrix of nodes,
-      minimum width=7.5in,
+    \matrix (m) [minimum width=7.5in,
       row sep=10mm,
       column sep=16mm]
     {%
       % row 0
       \node[input] (in)    {$R(s)$}; &
       \node[adder] (add)   {};       &
-      \node[block] (plant) {$G(s)$}; &
+      \node[block,text width=] (plant) {$\frac{G(s)}{(s+1)(s+2)(s+3)(s+4)}$}; &
       \node[node]  (tap)   {};       &
       \node[output](out)   {$C(s)$}; \\
       % row 1
