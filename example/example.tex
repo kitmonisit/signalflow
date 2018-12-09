@@ -1,27 +1,37 @@
 \documentclass[crop,tikz]{standalone}
 \usepackage{signalflowdiagram}
-\usetikzlibrary{matrix}
+\usepackage{pgf}
 
-\begin{document}
+\begin{document}%
   \begin{tikzpicture}
     [every node/.style={anchor=center}]
     \matrix (m) [minimum width=7.5in,
       row sep=10mm,
-      column sep=16mm]
+      column sep=10mm]
     {%
       % row 0
-      \node[input] (in)    {$R(s)$}; &
-      \node[adder] (add)   {};       &
-      \node[block,text width=] (plant) {$\frac{G(s)}{(s+1)(s+2)(s+3)(s+4)}$}; &
-      \node[node]  (tap)   {};       &
-      \node[output](out)   {$C(s)$}; \\
+      \node[input] (in)
+        {$R(s)$}; &
+      \node[feedback] (add)
+        {};       &
+      \node[block,text width=] (plant)
+        {$\frac{G(s)}{\left(\frac{s+1}{5}\right)(s+2)(s+3)(s+4)}$}; &
+      \node[node] (tap)
+        {};    &
+      \node[output] (out)
+        {$C(s)$}; \\
       % row 1
       &
       &
-      \node[block] (fb)    {$H(s)$}; &
+      \node[block]
+        (fb)
+        {$H(s)$}; &
       &
       & \\
     };
+
+    \draw (add.west)  node {$+$};
+    \draw (add.south) node {$-$};
 
     \path[r>] (in) -- (add);
     \path[r>] (add) -- (plant);
@@ -32,4 +42,4 @@
   \end{tikzpicture}
 \end{document}
 
-% vim:sw=2
+% vim:sw=2:fdm=marker

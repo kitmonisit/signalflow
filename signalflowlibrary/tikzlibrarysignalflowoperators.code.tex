@@ -49,11 +49,49 @@
    = [rectangle,
       operator style,
       minimum size=\delaysize]
+\tikzstyle{feedback}%
+  = [feedback shape,
+     operator style]
 
+% Anchors for default text box, see below.
+\newcommand{\stdaboveanchor}{%[[[
+  \anchor{text}{%
+    \centerpoint
+    \advance\pgf@x by-0.5\wd\pgfnodeparttextbox%
+    \advance\pgf@y by\radius
+    \advance\pgf@y by+0.5mm
+  }
+}%]]]
+\newcommand{\stdrightanchor}{%[[[
+  \anchor{text}{%
+    \centerpoint
+    \advance\pgf@x by\radius
+    \advance\pgf@x by+0.5mm
+    \advance\pgf@y by-0.5\ht\pgfnodeparttextbox%
+    \advance\pgf@y by+0.5\dp\pgfnodeparttextbox%
+  }
+}%]]]
+\newcommand{\stdbelowanchor}{%[[[
+  \anchor{text}{%
+    \centerpoint
+    \advance\pgf@x by-0.5\wd\pgfnodeparttextbox%
+    \advance\pgf@y by-\ht\pgfnodeparttextbox%
+    \advance\pgf@y by-\radius
+    \advance\pgf@y by-0.5mm
+  }
+}%]]]
+\newcommand{\stdleftanchor}{%[[[
+  \anchor{text}{%
+    \centerpoint
+    \advance\pgf@x by-\radius
+    \advance\pgf@x by-\wd\pgfnodeparttextbox%
+    \advance\pgf@x by-0.5mm
+    \advance\pgf@y by-0.5\ht\pgfnodeparttextbox%
+    \advance\pgf@y by+0.5\dp\pgfnodeparttextbox%
+  }
+}%]]]
 
-%
-% Circular shapes of operator symbols.
-%
+% Circular shapes of operator symbols.[[[
 % #1 = additional inner symbol
 \newcommand{\circularshape}[1]{%
   \savedanchor\centerpoint{\pgfpointorigin}
@@ -62,9 +100,9 @@
     \setlength{\pgf@xa}{\pgfshapeminwidth}
     \setlength{\pgf@ya}{\pgfshapeminheight}
     \ifdim\pgf@xa>\pgf@ya
-      \pgf@x=.5\pgf@xa
+      \pgf@x=1.5\pgf@xa
     \else
-      \pgf@x=.5\pgf@ya
+      \pgf@x=1.5\pgf@ya
     \fi
   }
   \inheritanchor[from=circle]{center}
@@ -95,53 +133,8 @@
   }
   % no text
   \nodeparts{}
-}
-
-
-%
-% Anchors for default text box, see below.
-%
-\newcommand{\stdaboveanchor}{%
-  \anchor{text}{%
-    \centerpoint
-    \advance\pgf@x by-0.5\wd\pgfnodeparttextbox%
-    \advance\pgf@y by\radius
-    \advance\pgf@y by+0.5mm
-  }
-}
-\newcommand{\stdrightanchor}{%
-  \anchor{text}{%
-    \centerpoint
-    \advance\pgf@x by\radius
-    \advance\pgf@x by+0.5mm
-    \advance\pgf@y by-0.5\ht\pgfnodeparttextbox%
-    \advance\pgf@y by+0.5\dp\pgfnodeparttextbox%
-  }
-}
-\newcommand{\stdbelowanchor}{%
-  \anchor{text}{%
-    \centerpoint
-    \advance\pgf@x by-0.5\wd\pgfnodeparttextbox%
-    \advance\pgf@y by-\ht\pgfnodeparttextbox%
-    \advance\pgf@y by-\radius
-    \advance\pgf@y by-0.5mm
-  }
-}
-\newcommand{\stdleftanchor}{%
-  \anchor{text}{%
-    \centerpoint
-    \advance\pgf@x by-\radius
-    \advance\pgf@x by-\wd\pgfnodeparttextbox%
-    \advance\pgf@x by-0.5mm
-    \advance\pgf@y by-0.5\ht\pgfnodeparttextbox%
-    \advance\pgf@y by+0.5\dp\pgfnodeparttextbox%
-  }
-}
-
-
-%
-% Circular shapes of operator symbols with default text box.
-%
+}%]]]
+% Circular shapes of operator symbols with default text box.[[[
 % #1 = place of the default text box
 \newbox\pgfnodepartabovebox
 \newbox\pgfnodepartrightbox
@@ -209,30 +202,46 @@
   }
   % circular shaped frame
   \inheritbackgroundpath[from=circle]
-}
+}%]]]
+% Feedback shape.[[[
+\newcommand{\feedbackshape}{%
+  %\savedanchor\centerpoint{\pgfpointorigin}
+  \inheritsavedanchors[from=circle]
+  \inheritanchorborder[from=circle]
+  % radius is half of maximum of \pgfshapeminwidth and \pgfshapeminheight
+  \saveddimen\radius{%
+    \setlength{\pgf@xa}{\pgfshapeminwidth}
+    \setlength{\pgf@ya}{\pgfshapeminheight}
+    \ifdim\pgf@xa>\pgf@ya
+      \pgf@x=1.75\pgf@xa
+    \else
+      \pgf@x=1.75\pgf@ya
+    \fi
+  }
+  \anchor{center}{\centerpoint}
+  \anchor{north}{\centerpoint\advance\pgf@y by  0.3cm}
+  \anchor{south}{\centerpoint\advance\pgf@y by -0.3cm}
+  \anchor{west}{\centerpoint\advance\pgf@x by  -0.3cm}
+  \anchor{east}{\centerpoint\advance\pgf@x by   0.3cm}
+  % circular shaped frame
+  \inheritbackgroundpath[from=circle]
+  % no text
+  \nodeparts{}
+}%]]]
 
-
-%
-% Shape of a node.
-%
-\pgfdeclareshape{node shape}{\labelledcircularshape{\stdaboveanchor}}%
-
-%
-% Shape of an input terminal.
-%
-\pgfdeclareshape{input terminal shape}{\labelledcircularshape{\stdleftanchor}}%
-%
-% Shape of an output terminal.
-%
-\pgfdeclareshape{output terminal shape}{\labelledcircularshape{\stdrightanchor}}%
-%
-% Shape of a multiplier.
-%
-\pgfdeclareshape{multiplier shape}{\labelledcircularshape{\stdleftanchor}}%
-%
-% Shape of a modulator.
-%
-\pgfdeclareshape{modulator shape}{\circularshape{%
+% Shape of a node.[[[
+\pgfdeclareshape{node shape}{\labelledcircularshape{\stdaboveanchor}}%]]]
+% Shape of an input terminal.[[[
+\pgfdeclareshape{input terminal shape}{\labelledcircularshape{\stdleftanchor}}%]]]
+% Shape of an output terminal.[[[
+\pgfdeclareshape{output terminal shape}{\labelledcircularshape{\stdrightanchor}}%]]]
+% Shape of a multiplier.[[[
+\pgfdeclareshape{multiplier shape}{\labelledcircularshape{\stdleftanchor}}%]]]
+% Shape of a modulator.[[[
+\pgfdeclareshape{modulator shape}
+  {
+    \circularshape
+    {%
     \pgfpathmoveto{\pgfpointadd{\pgfpoint{\pgf@xc}{\pgf@yc}}
                   {\pgfpoint{-0.707107\@tempdima}{-0.707107\@tempdima}}}
     \pgfpathlineto{\pgfpointadd{\pgfpoint{\pgf@xc}{\pgf@yc}}
@@ -241,19 +250,30 @@
                   {\pgfpoint{0.707107\@tempdima}{-0.707107\@tempdima}}}
     \pgfpathlineto{\pgfpointadd{\pgfpoint{\pgf@xc}{\pgf@yc}}
                   {\pgfpoint{-0.707107\@tempdima}{0.707107\@tempdima}}}
-}}%
-%
-% Shape of an adder.
-%
-\pgfdeclareshape{adder shape}{\circularshape{%
-    \pgfpathmoveto{\pgfpointadd{\pgfpoint{\pgf@xc}{\pgf@yc}}
-                  {\pgfpoint{-0.5\@tempdima}{0\@tempdima}}}
-    \pgfpathlineto{\pgfpointadd{\pgfpoint{\pgf@xc}{\pgf@yc}}
-                  {\pgfpoint{0.5\@tempdima}{0\@tempdima}}}
-    \pgfpathmoveto{\pgfpointadd{\pgfpoint{\pgf@xc}{\pgf@yc}}
-                  {\pgfpoint{0\@tempdima}{-0.5\@tempdima}}}
-    \pgfpathlineto{\pgfpointadd{\pgfpoint{\pgf@xc}{\pgf@yc}}
-                  {\pgfpoint{0\@tempdima}{0.5\@tempdima}}}
-}}%
+    }
+  }%]]]
+% Shape of an adder.[[[
+\pgfdeclareshape{adder shape}
+  {
+    \circularshape
+    {%
+      \pgfpathmoveto{\pgfpointadd{\pgfpoint{\pgf@xc}{\pgf@yc}}
+                    {\pgfpoint{-0.5\@tempdima}{0\@tempdima}}}
+      \pgfpathlineto{\pgfpointadd{\pgfpoint{\pgf@xc}{\pgf@yc}}
+                    {\pgfpoint{0.5\@tempdima}{0\@tempdima}}}
+      \pgfpathmoveto{\pgfpointadd{\pgfpoint{\pgf@xc}{\pgf@yc}}
+                    {\pgfpoint{0\@tempdima}{-0.5\@tempdima}}}
+      \pgfpathlineto{\pgfpointadd{\pgfpoint{\pgf@xc}{\pgf@yc}}
+                    {\pgfpoint{0\@tempdima}{0.5\@tempdima}}}
+    }%
+  }%]]]
+% Shape of a feedback node[[[
+\pgfdeclareshape{feedback shape}%
+  {%
+    \feedbackshape%
+  }%]]]
+
 
 \endinput
+
+% vim:sw=2:fdm=marker

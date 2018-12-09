@@ -62,10 +62,22 @@ $\bullet$\\[-1ex] $\bullet$\\[-1ex] $\bullet$}
 %
 % #1 = node label
 % #2 = label text
-\newcommand{\textaboveof}[2]{\pgftext[bottom,at=\pgfpointanchor{#1}{north},y=+1mm]{#2}}%
-\newcommand{\textrightof}[2]{\pgftext[left,  at=\pgfpointanchor{#1}{east}, x=+1mm]{#2}}%
-\newcommand{\textbelowof}[2]{\pgftext[top   ,at=\pgfpointanchor{#1}{south},y=-1mm]{#2}}%
-\newcommand{\textleftof} [2]{\pgftext[right, at=\pgfpointanchor{#1}{west}, x=-1mm]{#2}}%
+\newcommand{\textaboveof}[2]
+  {
+    \pgftext[bottom,at=\pgfpointanchor{#1}{north},y=+1mm]{#2}
+  }%
+\newcommand{\textrightof}[2]
+  {
+    \pgftext[left,  at=\pgfpointanchor{#1}{east}, x=+1mm]{#2}
+  }%
+\newcommand{\textbelowof}[2]
+  {
+    \pgftext[top   ,at=\pgfpointanchor{#1}{south},y=-1mm]{#2}
+  }%
+\newcommand{\textleftof}[2]
+  {
+    \pgftext[right, at=\pgfpointanchor{#1}{west}, x=-1mm]{#2}
+  }%
 
 \makeatletter
 \newcounter{r}
